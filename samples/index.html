@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" >
+    <title>Title</title>
+</head>
+<style type="text/css">
+    .form {
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        width: 20vw;
+        padding: 8px;
+    }
+
+    .form-control {
+        width: 100%;
+        margin-bottom: 10px;
+
+    }
+
+    .form-control input, button {
+        width: 100%;
+        height: 30px;
+    }
+</style>
+<body>
+
+<script src="../dist/browser/eusi-browser.js"></script>
+<form novalidate class="form">
+    <p>Login form</p>
+    <div class="form-control">
+        <input id="email" type="text" placeholder="your mail address" />
+    </div>
+    <div class="form-control">
+        <input id="password" placeholder="password" type="password" />
+    </div>
+
+    <div class="form-control">
+        <button class="form-control" id="login_btn" type="submit">Login</button>
+    </div>
+</form>
+
+<form novalidate class="form">
+    <p>Register form</p>
+    <div class="form-control">
+        <input id="register_email" type="text" placeholder="your mail address" />
+    </div>
+    <div class="form-control">
+        <input id="register_password" placeholder="password" type="password" />
+    </div>
+
+    <div class="form-control">
+        <input id="register_first_name" type="text" placeholder="first name" />
+    </div>
+
+    <div class="form-control">
+        <input id="register_last_name" type="text" placeholder="last name" />
+    </div>
+
+
+    <div class="form-control">
+        <button class="form-control" id="register_btn" type="submit">Register</button>
+    </div>
+</form>
+
+<form novalidate class="form">
+    <p>Anonymous access</p>
+    <div class="form-control">
+        <button class="form-control" id="anonymous_btn" type="submit">Access it anonymously</button>
+    </div>
+</form>
+
+<script src="main.js"></script>
+</body>
+</html>
