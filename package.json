@@ -1,5 +1,5 @@
 {
-  "name": "eusi-browser",
+  "name": "eusi-sdk-browser",
   "version": "1.0.0",
   "description": "SDK for accessing EUSI delivery API directly from browser",
   "main": "dist/cjs/eusi-browser.js",
