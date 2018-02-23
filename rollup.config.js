@@ -36,7 +36,7 @@ export default [
         input,
         plugins: browserBuildPlugins.concat(uglify()),
         output: {
-            file: 'dist/browser/eusi-browser.min.js',
+            file: 'dist/browser/eusi-sdk-browser.min.js',
             format: 'umd',
             name: 'eusiBrowserMin'
         }

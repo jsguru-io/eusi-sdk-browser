@@ -1,17 +1,19 @@
 
 
 # eusi-sdk-browser
-The JS library acting as a wrapper around **EUSI** delivery API for web browsers (client side code).
+The JS library which abstracts low level communication with **EUSI** delivery API is meant to be used from web browsers (client side code).
 
 > EUSI is API-first CMS that is user-friendly, beautifully
 designed and easy to use.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
+## Installation
 
 - [Installation](#installation)
+- [Independent bundle](#independent-bundle)
 - [Simple usage](#simple-usage)
+- [Configuration](#configuration)
 - [Authorization/Authentication](#authorizationauthentication)
   - [login](#login)
   - [register](#register)
@@ -39,20 +41,33 @@ designed and easy to use.
 - [Fetching taxonomy](#fetching-taxonomy)
   - [getTaxonomy](#gettaxonomy)
 - [Wrapping up the access token](#wrapping-up-the-access-token)
+- [More examples](#more-examples)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Installation
-``` sh
-npm install --save eusi-sdk-node
+```sh
+npm install --save eusi-sdk-browser
 ```
 or
-``` sh
-yarn add eusi-sdk-node
+```sh
+yarn add eusi-sdk-browser
 ```
+
+## Independent bundle
+If you are not using any bundling tools or you simply want to manually include our library on your page, we have a solution for you.
+First you need to install our library through npm or yarn and then simply reference it as shown below.
+```html
+<script src="/node_modules/eusi-sdk-browser/dist/browser/eusi-browser.js"></srcipt>
+```
+or for production ready uses you can fetch minified bundle
+```html
+<script src="/node_modules/eusi-sdk-browser/dist/browser/eusi-browser.min.js"></srcipt>
+```
+This will make global *eusiBrowser* object available to you.
+
 ## Simple usage
 ``` js
-const eusiBrowser = require('eusi-sdk-node');
+    import eusiBrowser from 'eusi-sdk-browser';
 
     // both bucketKey and bucketSecret should be obtained form inside our eusi app under the settings tab
     const eusi = eusiBrowser({
@@ -62,14 +77,14 @@ const eusiBrowser = require('eusi-sdk-node');
 
 	// obtaining an anonymous access token
 	// (in case you are not using our membership system or
-	// you want a guest access)
+	// you want sguest access)
     eusi.getAccess()
 	    .then((response) => eusi.getById('44e8c09b-ed9e-4424-99e0-2de60adafa01', { token: response.token }))
         .then(console.log);
 ```
 
-## Configuratioon
-You can configure eusiBrowser factory with the fallowing parameters:
+## Configuration
+You can configure *eusiBrowser* factory with the following parameters:
 
  - **bucketKey** (mandatory) - represents unique identificator of the bucket you are accessing
  - **bucketSecret** (mandatory) - the secret token that you are given
@@ -77,19 +92,25 @@ You can configure eusiBrowser factory with the fallowing parameters:
 
 ## Authorization/Authentication
 We use two step authorization system.
-First you need to acquire bucket key **(aka bucket id)**  and the bucket secret. Both of these you can obtain through our app.
-Go to settings section. Click on the bucket keys tab where you will be able to create a new bucket key. Choose a name and select which parts should be turned on.
-Note that only parts of the API which are activated you will be able to use with that newly created key.
-Click save and you will be displayed with the bucket id (aka bucket key) and the bucket secret.
-Now pass both of that data to sdk function and you will receive a client object which still have to obtain a temporary access token.
+First you need to acquire the bucket key **(aka bucket id)**  and the bucket secret. Both of these you can obtain through our application.
+
+ 1. Go to the settings section.
+ 2. Click on the bucket keys tab where you will be able to create a new bucket key.
+ 3. Choose a name and select which parts should be turned on.
+ 4. Click save and you will be displayed with the bucket id (aka bucket key) and the bucket secret.
+
+Now pass both of that data to SDK factory function and you will receive a client object.
+
 ```js
    const eusi = eusiBrowser({
 	    bucketKey: '46e5945b-789d-4cc2-8a40-608612425226',
 	    bucketSecret: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJidWNrZXRfaWQiOiI0NmU1OTQ1Yi03ODlkLTRjYzItOGE0MC02MDg2MTI0MjUyMjYiLCJpZCI6IjU0MjBjYjA2LTRmMGYtNDMzMy1hODJhLTc5ZmFjMzU5YTU2ZSIsInRpbWVzdGFtcCI6MTUxNjYxMDU5NDc1Mn0.Li8Sb8v1CJnANDctUQumAQo90puBtNA3ywh4MmnxP-M'
     });
 ```
+***NOTE:  that only parts of the API which are activated you will be able to use with that newly created key.***
+
 Next step is acquiring an access token.
-There are few ways of doing it described below.
+There are a few ways of doing it as described below.
 
 ### login
 
@@ -149,7 +170,7 @@ eusi.getAccess().then(response => {
 .catch(error => console.log('Obtaining temporary access token failed');
 ```
 ### getUser
-Retrieve info of currently logged in user
+Retrieves info of the currently logged in user
 ```js
 eusi.getUser({ token }).then(user => console.log(user));
 ```
@@ -172,13 +193,13 @@ eusi.getById('44e8c09b-ed9e-4424-99e0-2de60adafa01', { token });
 eusi.get({
     type: 'blog'
 }, { token })
-    .then(result...
+    .then(console.log);
 ```
 or
 
 ``` js
 eusi.getByType('blog', { token })
-    .then(result...
+    .then(console.log);
 ```
 
 ### by content name
@@ -274,7 +295,7 @@ Currently we support these operators: **$like**, **$between**, **$in** , **$lg**
 **They all work the same as related SQL operators.**
 
 ### $like
-Matches substrings (works the same as SQL LIKE operator)
+Matches substrings
 ``` js
 eusi.getByField({
      'responsible-scientist': {
@@ -411,7 +432,7 @@ withTokenClient
 ```
 
 ## Wrapping up the access token
-Instead of passing token every time you request something you can wrap it up and receive an object with the identical API which will automatically pass the token for you any time you make a request.
+Instead of passing the access token every time you request something you can wrap it up and receive an object with the identical API which will automatically pass the token for you any time you make a request.
 ``` js
     const eusi = eusiBrowser({
 	    bucketKey: '46e5945b-789d-4cc2-8a40-608612425226',

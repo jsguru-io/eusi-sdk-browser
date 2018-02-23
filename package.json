@@ -2,9 +2,9 @@
   "name": "eusi-sdk-browser",
   "version": "1.0.0",
   "description": "SDK for accessing EUSI delivery API directly from browser",
-  "main": "dist/cjs/eusi-browser.js",
-  "module": "dist/es/eusi-browser.js",
-  "browser": "dist/browser/eusi-browser.js",
+  "main": "dist/cjs/eusi-sdk-browser.js",
+  "module": "dist/es/eusi-sdk-browser.js",
+  "browser": "dist/browser/eusi-sdk-browser.js",
   "keywords": [
     "eusi",
     "sdk",
