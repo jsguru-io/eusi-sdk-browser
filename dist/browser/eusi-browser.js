@@ -221,6 +221,15 @@ var Content = (function (_ref) {
     };
 });
 
+var getTokenLinkedAPI = function getTokenLinkedAPI(authAPI, token) {
+    return {
+        // there is only one method from AUTH API which requires token
+        getUser: function getUser() {
+            return authAPI.getUser({ token: token });
+        }
+    };
+};
+
 var Auth = (function (_ref) {
     var bucketKey = _ref.bucketKey,
         bucketSecret = _ref.bucketSecret,
@@ -264,10 +273,18 @@ var Auth = (function (_ref) {
         });
     };
 
+    var getUser = function getUser(_ref3) {
+        var token = _ref3.token;
+        return httpService.get(baseUrl + '/' + bucketKey + '/me', {
+            headers: getCommonHeaders(token)
+        });
+    };
+
     return {
         getAccess: getAccess,
         login: login,
-        register: register
+        register: register,
+        getUser: getUser
     };
 });
 
@@ -290,7 +307,7 @@ var getHeaders = function getHeaders(accessToken) {
     return Object.assign({}, getCommonHeaders(accessToken), contentType);
 };
 
-var getTokenLinkedAPI = function getTokenLinkedAPI(formsAPI, token) {
+var getTokenLinkedAPI$1 = function getTokenLinkedAPI(formsAPI, token) {
     return {
         getForm: function getForm(formKey) {
             return formsAPI.getForm(formKey, {
@@ -398,10 +415,10 @@ var Client = (function (_ref) {
         var authAPI = Auth(options);
         var formsAPI = Forms(options);
         var taxonomyAPI = Taxonomy(options);
-        var accessTokenAPI = Object.assign({}, contentFilteringAPI, taxonomyAPI);
 
         // creating a helper object which will encapsulate the access token which is then passed to every calling function
         var createLinkBasedOnToken = function createLinkBasedOnToken(token) {
+            var accessTokenAPI = Object.assign({}, contentFilteringAPI, taxonomyAPI);
             var baseAPI = Object.keys(accessTokenAPI).reduce(function (acc, functionName) {
                 return Object.assign({}, acc, defineProperty({}, functionName, function () {
                     for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -415,10 +432,10 @@ var Client = (function (_ref) {
                 }));
             }, {});
 
-            return Object.assign({}, baseAPI, getTokenLinkedAPI(formsAPI, token));
+            return Object.assign({}, baseAPI, getTokenLinkedAPI$1(formsAPI, token), getTokenLinkedAPI(authAPI, token));
         };
 
-        return Object.assign(createLinkBasedOnToken, authAPI, formsAPI, accessTokenAPI);
+        return Object.assign(createLinkBasedOnToken, authAPI, formsAPI, contentFilteringAPI, taxonomyAPI);
     };
 });
 

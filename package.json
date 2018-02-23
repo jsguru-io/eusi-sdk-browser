@@ -34,7 +34,7 @@
     "rollup-plugin-uglify": "^3.0.0"
   },
   "dependencies": {
-    "eusi-core": "git+https://git@github.com/jsguru-io/eusi-sdk-core-js.git"
+    "eusi-sdk-core": "git+https://github.com/jsguru-io/eusi-sdk-core-js.git"
   },
   "scripts": {
     "build": "rollup -c",
