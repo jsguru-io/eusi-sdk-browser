@@ -15,7 +15,7 @@
     "headles CMS"
   ],
   "author": "JS Guru Internatinal",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-eslint": "^8.2.2",
     "babel-plugin-external-helpers": "^6.22.0",
