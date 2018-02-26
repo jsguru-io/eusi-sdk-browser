@@ -1,17 +1,12 @@
-import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
 import pkg from './package.json';
 
 const input = 'lib/index.js';
+const externalPackages = Object.keys(Object.assign({}, pkg.dependencies, pkg.peerDependencies));
 
 const browserBuildPlugins = [
-    resolve({
-        customResolveOptions: {
-            moduleDirectory: 'node_modules'
-        }
-    }),
     commonjs(),
     babel({
         exclude: ['node_modules/**'],
@@ -24,10 +19,14 @@ export default [
     {
         input,
         plugins: browserBuildPlugins,
+        external: externalPackages,
         output: {
             name: 'eusiBrowser',
             file: pkg.browser,
             format: 'umd',
+            globals: {
+                'eusi-sdk-core': 'eusiCore'
+            }
         }
 
     },
@@ -35,10 +34,14 @@ export default [
     {
         input,
         plugins: browserBuildPlugins.concat(uglify()),
+        external: externalPackages,
         output: {
             file: 'dist/browser/eusi-sdk-browser.min.js',
             format: 'umd',
-            name: 'eusiBrowserMin'
+            name: 'eusiBrowserMin',
+            globals: {
+                'eusi-sdk-core': 'eusiCore'
+            }
         }
     },
 
@@ -49,7 +52,7 @@ export default [
     // the `targets` option which can specify `dest` and `format`)
     {
         input,
-        external: Object.keys(pkg.dependencies || {}),
+        external: externalPackages,
         output: [
             { file: pkg.main, format: 'cjs' },
             { file: pkg.module, format: 'es' }

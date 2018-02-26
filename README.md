@@ -1,14 +1,14 @@
 
 
 # eusi-sdk-browser
-The JS library which abstracts low level communication with **EUSI** delivery API is meant to be used within web browsers (client side code).
+The JS library which abstracts low level communication with [**EUSI**](https://eusi.io) delivery API is meant to be used within web browsers (client side code).
 
-> EUSI is API-first CMS that is user-friendly, beautifully
+> EUSI is an API-first CMS that is user-friendly, beautifully
 designed and easy to use.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Installation
+## Table of content
 
 - [Installation](#installation)
 - [Independent bundle](#independent-bundle)
@@ -46,25 +46,28 @@ designed and easy to use.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ## Installation
+*NOTE: **eus-sdk-browser** package is peer dependent on **eusi-sdk-core** package so please make sure you have installed them both !*
 ```sh
-npm install --save eusi-sdk-browser
+npm install --save eusi-sdk-core eusi-sdk-browser
 ```
 or
 ```sh
-yarn add eusi-sdk-browser
+yarn add eusi-sdk-core eusi-sdk-browser
 ```
 
 ## Independent bundle
 If you are not using any bundling tools or you simply want to manually include our library on your page, we have a solution for you.
-First you need to install our library through npm or yarn and then simply reference it as shown below.
+First you need to install both of our libraries **eusi-sdk-core** and **eusi-sdk-browser** through npm or yarn and then simply include them as shown below.
 ```html
-<script src="/node_modules/eusi-sdk-browser/dist/browser/eusi-browser.js"></srcipt>
+<script src="/node_modules/eusi-sdk-core/dist/browser/eusi-core.js"></srcipt>
+<script src="/node_modules/eusi-sdk-browser/dist/browser/eusi-sdk-browser.js"></srcipt>
 ```
 or for production ready uses you can fetch minified bundle
 ```html
-<script src="/node_modules/eusi-sdk-browser/dist/browser/eusi-browser.min.js"></srcipt>
+<script src="/node_modules/eusi-sdk-core/dist/browser/eusi-core.min.js"></srcipt>
+<script src="/node_modules/eusi-sdk-browser/dist/browser/eusi-sdk-browser.min.js"></srcipt>
 ```
-This will make global *eusiBrowser* object available to you.
+This will make global ***eusiBrowser*** object available to you.
 
 ## Simple usage
 ``` js

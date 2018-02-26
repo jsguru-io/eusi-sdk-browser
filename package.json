@@ -1,6 +1,10 @@
 {
   "name": "eusi-sdk-browser",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsguru-io/eusi-sdk-browser"
+  },
   "description": "SDK for accessing EUSI delivery API directly from browser",
   "main": "dist/cjs/eusi-sdk-browser.js",
   "module": "dist/es/eusi-sdk-browser.js",
@@ -10,11 +14,13 @@
     "sdk",
     "EUSI",
     "browser",
+    "client",
     "delivery",
     "API",
-    "headles CMS"
+    "headles",
+    "cms"
   ],
-  "author": "JS Guru Internatinal",
+  "author": "JS Guru International",
   "license": "MIT",
   "devDependencies": {
     "babel-eslint": "^8.2.2",
@@ -34,9 +40,6 @@
     "rollup-plugin-node-resolve": "^3.0.3",
     "rollup-plugin-uglify": "^3.0.0"
   },
-  "dependencies": {
-    "eusi-sdk-core": "git+https://github.com/jsguru-io/eusi-sdk-core-js.git"
-  },
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -53,5 +56,8 @@
     "lib/**/*.js": [
       "eslint --fix"
     ]
+  },
+  "peerDependencies": {
+    "eusi-sdk-core": "^1.0.0"
   }
 }
