@@ -1,7 +1,7 @@
 
 
 # eusi-sdk-browser
-The JS library which abstracts low level communication with **EUSI** delivery API is meant to be used from web browsers (client side code).
+The JS library which abstracts low level communication with **EUSI** delivery API is meant to be used within web browsers (client side code).
 
 > EUSI is API-first CMS that is user-friendly, beautifully
 designed and easy to use.
@@ -27,6 +27,7 @@ designed and easy to use.
   - [by taxonomy name](#by-taxonomy-name)
   - [by taxonomy path](#by-taxonomy-path)
   - [by field](#by-field)
+  - [Pagination](#pagination)
 - [Advanced querying](#advanced-querying)
   - [$like](#like)
   - [$between](#between)
@@ -127,6 +128,7 @@ eusi.login({
   eusi.getById('060c99b0-b2db-42ca-a94d-c4873c2bda90', { token }).then(console.log);
 
   // or you can wrap the token up so you dont pass it every time you request something
+  // for more info please refer to "Wrapping up the access token" section
   const withTokenClient = eusi(token);
   withTokenClient.getById('060c99b0-b2db-42ca-a94d-c4873c2bda90').then(console.log);
   withTokenClient.getByName('Some content name').then(console.log);
@@ -174,7 +176,7 @@ Retrieves info of the currently logged in user
 ```js
 eusi.getUser({ token }).then(user => console.log(user));
 ```
-or if you have created *withTokenClient*
+or if you have created [*withTokenClient*](#wrapping-up-the-access-token)
 ```js
 withTokenClient.getUser().then(user => console.log(user));
 ```
@@ -285,6 +287,39 @@ eusi.getByField({
     // 'responsible-scientist' with the value 'Nikola Tesla' and
     // which have at the same time 'location' field with
     // the value 'New York'
+});
+```
+### Pagination
+We support pagination.
+In order to control the pagination you use two optional properties as part of a second object argument: **pageSize** and **pageNumber**. This signature is same for all content related API methods.
+```js
+eusi.getByName('Some content name', {
+  token,
+  pageSize: 20,
+  pageNumber: 1
+});
+
+eusi.get({
+  name: 'Some content name',
+  taxonomyName: 'some taxonomy name'
+}, {
+  token,
+  pageSize: 10,
+  pageNumber: 5
+});
+```
+or if you have created [withTokenClient](#wrapping-up-the-access-token)
+```js
+withTokenClient.getByType('blog', {
+  pageSize: 20,
+  pageNumber: 1
+});
+
+withTokenCient.get({
+  id: '82803b24-1ad5-11e8-accf-0ed5f89f718b'
+}, {
+  pageSize: 10,
+  pageNumber: 5
 });
 ```
 
