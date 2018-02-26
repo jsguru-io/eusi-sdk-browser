@@ -46,7 +46,8 @@ designed and easy to use.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ## Installation
-*NOTE: **eus-sdk-browser** package is peer dependent on **eusi-sdk-core** package so please make sure you have installed them both !*
+*NOTE: **eus-sdk-browser** package is peer dependent on **eusi-sdk-core** package
+so please make sure you have installed them both !*
 ```sh
 npm install --save eusi-sdk-core eusi-sdk-browser
 ```

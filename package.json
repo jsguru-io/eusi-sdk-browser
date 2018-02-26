@@ -58,6 +58,6 @@
     ]
   },
   "peerDependencies": {
-    "eusi-sdk-core": "^1.0.0"
+    "eusi-sdk-core": "^1.0.1"
   }
 }
