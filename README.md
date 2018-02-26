@@ -59,12 +59,12 @@ yarn add eusi-sdk-core eusi-sdk-browser
 If you are not using any bundling tools or you simply want to manually include our library on your page, we have a solution for you.
 First you need to install both of our libraries **eusi-sdk-core** and **eusi-sdk-browser** through npm or yarn and then simply include them as shown below.
 ```html
-<script src="/node_modules/eusi-sdk-core/dist/browser/eusi-core.js"></srcipt>
+<script src="/node_modules/eusi-sdk-core/dist/browser/eusi-sdk-core.js"></srcipt>
 <script src="/node_modules/eusi-sdk-browser/dist/browser/eusi-sdk-browser.js"></srcipt>
 ```
 or for production ready uses you can fetch minified bundle
 ```html
-<script src="/node_modules/eusi-sdk-core/dist/browser/eusi-core.min.js"></srcipt>
+<script src="/node_modules/eusi-sdk-core/dist/browser/eusi-sdk-core.min.js"></srcipt>
 <script src="/node_modules/eusi-sdk-browser/dist/browser/eusi-sdk-browser.min.js"></srcipt>
 ```
 This will make global ***eusiBrowser*** object available to you.
