@@ -12,9 +12,12 @@ window.anonymous_btn.addEventListener('click', evt => {
     eusi.getAccess().then((response) => {
         const eusiClient = eusi(response.token);
         eusiClient.getById('44e8c09b-ed9e-4424-99e0-2de60adafa01').then(console.log);
+        eusiClient.getByKey('Blog-1a34').then(console.log);
         eusiClient.get({
-            name: 'Aussie Open 2018 - first round'
+            title: 'Aussie Open 2018 - first round'
         }).then(console.log);
+
+        eusiClient.getByModel('Blog').then(console.log);
 
         eusiClient.getTaxonomy('colours').then(response => {
             console.log('Fetched taxonomy', response);
@@ -38,7 +41,7 @@ window.register_btn.addEventListener('click', evt => {
             const eusiClient = eusi(user.token);
             console.log(user);
 
-            eusiClient.getByType('blog').then(console.log);
+            eusiClient.getByModel('blog').then(console.log);
 
             eusiClient.getByName('Content 1').then(console.log);
 
@@ -46,7 +49,7 @@ window.register_btn.addEventListener('click', evt => {
 
             eusiClient.get({
                 taxonomyPath: 'news.sport.table-tennis',
-                type: 'News'
+                model: 'News'
             }).then(console.log);
 
             eusiClient.getByField({
@@ -66,10 +69,10 @@ window.login_btn.addEventListener('click', (evt) => {
 
     //passing token around for every endpoint call
     eusi.login(window.email.value, window.password.value).then(user => {
-        eusi.getByType('Template2', {
+        eusi.getByModel('Blog', {
             token: user.token
         }).then(console.log);
-        eusi.getByName('Content 1', {
+        eusi.getByTitle('Visiting Serbia', {
             token: user.token
         }).then(console.log);
         eusi.getByField({
@@ -90,7 +93,7 @@ window.login_btn.addEventListener('click', (evt) => {
         });
 
         eusiClient.get({
-            name: {
+            title: {
                 $like: '%travel%',
             },
             type: 'blog'
