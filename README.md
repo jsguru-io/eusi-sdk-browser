@@ -137,10 +137,10 @@ eusi.login({
   // or you can wrap the token up so you dont pass it every time you request something
   // for more info please refer to "Wrapping up the access token" section
   const withTokenClient = eusi(token);
-  withTokenClient.getById('060c99b0-b2db-42ca-a94d-c4873c2bda90').then(console.log);
+  eusi.withTokenClient.getById('060c99b0-b2db-42ca-a94d-c4873c2bda90').then(console.log);
   withTokenClient.getByName('Some content title').then(console.log);
 }).catch(error => {
-	console.log('Login failed'};
+	console.log('Login failed');
 });
 ```
 ### register
@@ -158,10 +158,10 @@ eusi.register({
   // now you are ready to go
 
   const withTokenClient = eusi(token);
-  withTokenClient.getById('060c99b0-b2db-42ca-a94d-c4873c2bda90').then(console.log);
+  eusi.withTokenClient.getById('060c99b0-b2db-42ca-a94d-c4873c2bda90').then(console.log);
   withTokenClient.getByName('Some content title').then(console.log);
 }).catch(error => {
-	console.log('Registration failed'};
+	console.log('Registration failed');
 });
 ```
 **NOTE: The register method will automatically login newly created user.**
@@ -185,7 +185,7 @@ eusi.getUser({ token }).then(user => console.log(user));
 ```
 or if you have created [*withTokenClient*](#wrapping-up-the-access-token)
 ```js
-withTokenClient.getUser().then(user => console.log(user));
+eusi.withTokenClient.getUser().then(user => console.log(user));
 ```
 
 ## Fetching content
@@ -193,7 +193,7 @@ withTokenClient.getUser().then(user => console.log(user));
 ### by key
 
 ```js
-eusi.getByKey('First-blog234', { token ).then(console.log);
+eusi.getByKey('First-blog234', { token } ).then(console.log);
 ```
 ### by id
 
@@ -313,7 +313,7 @@ or
 ``` js
 eusi.getByField({
   'responsible-scientist': 'Nikola Tesla'
-}), { token }).then(res => {
+}, { token }).then(res => {
   console.log(res);
   // prints out all the content which have field key 'responsible-scientis' with the value 'Nikola Tesla'
 });
@@ -352,12 +352,12 @@ eusi.get({
 ```
 or if you have created [withTokenClient](#wrapping-up-the-access-token)
 ```js
-withTokenClient.getByType('blog', {
+eusi.withTokenClient.getByType('blog', {
   pageSize: 20,
   pageNumber: 1
 });
 
-withTokenCient.get({
+eusi.withTokenCient.get({
   id: '82803b24-1ad5-11e8-accf-0ed5f89f718b'
 }, {
   pageSize: 10,
@@ -425,7 +425,7 @@ eusi.get({
 ### $gt
 Matches all the number values greater then specified value
 ``` js
-esui.getByField({
+eusi.getByField({
     field: {
         maxAge: {
             $gt: 10
@@ -474,9 +474,9 @@ Submits the form
 
 ```js
 const formKey = 'login_form';
-withTokenClient.submitForm(formKey, {
+eusi.withTokenClient.submitForm(formKey, {
 	userName: 'johndoe',
-	password: '123';
+	password: '123'
 }).then(() => {
   console.log('Submit successful');
 });
@@ -487,7 +487,7 @@ Submits the test data. Handy if you want to check if your form is working correc
 
 ```js
 const formKey = 'register_form';
-withTokenClient.submitForm(formKey, {
+eusi.withTokenClient.submitForm(formKey, {
 	firstName: 'John',
 	lastName: 'Smith',
 	email: 'john@smith.com',
@@ -503,9 +503,9 @@ You can ask for a specific taxonomy and get all the info related to it including
 ```js
 // you can pass either taxonomyKey or taxonomyId
 const taxonomyKeyOrId = 'categories';
-withTokenClient
+eusi.withTokenClient
 	.getTaxonomy(taxonomyKeyOrId)
-	.then(taxonomy => console.log(taxonomy);
+	.then(taxonomy => console.log(taxonomy));
 ```
 
 ## Wrapping up the access token
@@ -516,7 +516,7 @@ Instead of passing the access token every time you request something you can wra
 	    bucketSecret: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJidWNrZXRfaWQiOiI0NmU1OTQ1Yi03ODlkLTRjYzItOGE0MC02MDg2MTI0MjUyMjYiLCJpZCI6IjU0MjBjYjA2LTRmMGYtNDMzMy1hODJhLTc5ZmFjMzU5YTU2ZSIsInRpbWVzdGFtcCI6MTUxNjYxMDU5NDc1Mn0.Li8Sb8v1CJnANDctUQumAQo90puBtNA3ywh4MmnxP-M'
     });
     eusi.getAccess().then(response => {
-		const withTokenClient = eusi(response.toekn);
+		const withTokenClient = eusi(response.token);
 		// now whenevery you request something by using 'withTokenClient' the token will be passed automatically
 		withTokenClient.get({
 			title: 'I just realized I dont need to pass the token every time'
