@@ -31,6 +31,9 @@ designed and easy to use.
   - [by taxonomy path](#by-taxonomy-path)
   - [by field](#by-field)
   - [Pagination](#pagination)
+- [Purchasing content](#purchasing-content)
+	- [example](#example)
+	- [parameters](#parameters)
 - [Advanced querying](#advanced-querying)
   - [$like](#like)
   - [$between](#between)
@@ -364,6 +367,52 @@ withTokenCient.get({
   pageNumber: 5
 });
 ```
+## Purchasing content using crypto currencies
+Our platform allows your customers to purchase any content you have set price on it by using crypto currencies.
+At the moment we support payment with 6 most popular crypto currencies:
+
+ - Bitcoin (BTC)
+ - Bitcoin Cash (BCH)
+ - Litecoin (LTC)
+ - Dash (dash)
+ - Ethereum (ETH)
+ - Ripple (XRP)
+
+### Example
+```js
+const contentId = '966364a6-877f-4747-9214-afd0172e4e32';
+withTokenClient.purchaseContent(contentId, {
+  currency: 'ETH',
+  description: 'Buying my first content',
+  notifyUrl: 'https://my-payment-hook-url.com'
+}).then(console.log);
+
+// the response will be formatted like this
+{
+    "id": "123f293c-79b1-4f62-935b-655e5a09f53d",
+    "member_id": "04eca9ce-3d4d-45c1-9fd9-d86515359447",
+    "content_id": "966364a6-877f-4747-9214-afd0172e4e32",
+    "amount": "2.000000000000000000",
+    "currency": "USD",
+    "requested_currency_to_pay_with": "ETH",
+    "address": "0xacd0f6319d5d22e978be085bb5dedd94ec93ff07",
+    "deposit": {
+        "address": "0xacd0f6319d5d22e978be085bb5dedd94ec93ff07"
+    },
+    "payment_url": "https://www.alfacoins.com/invoice/5b471b5c98046",
+    "iframe": "https://www.alfacoins.com/iframe/5b471b5c98046",
+    "status": "pending",
+    "updated_at": "2018-07-12T09:11:56.670Z",
+    "created_at": "2018-07-12T09:11:56.670Z"
+}
+```
+### Parameters
+- **contentId** - id of the content to purchase
+- **currency** - crypto currency code which you want to pay with
+- **description** - payment description which is going to be sent to your customer as part of a notification email
+- **notifyUrl** - the URL which is going to be POST requested with every status change of the payment
+
+For more details please check our official API documentation.
 
 ## Advanced querying
 Our API provides you with an easy and elegant interface to make more complex queries.

@@ -1,8 +1,8 @@
 /*eslint-disable*/
 const eusi = eusiBrowser({
     deliveryApi: 'http://localhost:4301/api/v1', // this one is optional, default url will be set to target our cloud delivery API
-    bucketKey: '46e5945b-789d-4cc2-8a40-608612425226',
-    bucketSecret: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJidWNrZXRfaWQiOiI0NmU1OTQ1Yi03ODlkLTRjYzItOGE0MC02MDg2MTI0MjUyMjYiLCJpZCI6IjU0MjBjYjA2LTRmMGYtNDMzMy1hODJhLTc5ZmFjMzU5YTU2ZSIsInRpbWVzdGFtcCI6MTUxNjYxMDU5NDc1Mn0.Li8Sb8v1CJnANDctUQumAQo90puBtNA3ywh4MmnxP-M'
+    bucketKey: '44b8a955-c68f-4861-a45b-148ca2c63e77',
+    bucketSecret: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJidWNrZXRfaWQiOiI0NGI4YTk1NS1jNjhmLTQ4NjEtYTQ1Yi0xNDhjYTJjNjNlNzciLCJpZCI6IjFiMjAyMDYyLTI3YzYtNDRkZC1hMjQ2LTQxNTZmMzlmOGQ3MCIsInRpbWVzdGFtcCI6MTUzMDYwNDk5NTEyMH0.y71lgDsCu_1s1VX_hpRXsBnHyVWhdS6_sbI764L6e9c'
 });
 
 window.anonymous_btn.addEventListener('click', evt => {
@@ -11,10 +11,10 @@ window.anonymous_btn.addEventListener('click', evt => {
 
     eusi.getAccess().then((response) => {
         const eusiClient = eusi(response.token);
-        eusiClient.getById('44e8c09b-ed9e-4424-99e0-2de60adafa01').then(console.log);
+        eusiClient.getById('2ebd3d28-6ea4-42c0-a922-43641e5a5753').then(console.log);
         eusiClient.getByKey('Blog-1a34').then(console.log);
         eusiClient.get({
-            title: 'Aussie Open 2018 - first round'
+            title: 'Europe travel'
         }).then(console.log);
 
         eusiClient.getByModel('Blog').then(console.log);
@@ -22,6 +22,12 @@ window.anonymous_btn.addEventListener('click', evt => {
         eusiClient.getTaxonomy('colours').then(response => {
             console.log('Fetched taxonomy', response);
         });
+
+        eusiClient.purchaseContent('2ebd3d28-6ea4-42c0-a922-43641e5a5753', {
+            currency: 'ETH',
+            description: 'Buying Europe  Travel blog'
+        }).then(console.log)
+            .catch(console.error);
     });
 });
 
@@ -60,6 +66,11 @@ window.register_btn.addEventListener('click', evt => {
                     $like: '%some text which resides inside the web page footer section%'
                 }
             }).then(console.log);
+
+            eusiClient.purchaseContent('2ebd3d28-6ea4-42c0-a922-43641e5a5753', {
+                currency: 'ETH',
+                description: 'Buying Europe  Travel blog'
+            });
         });
 });
 
@@ -87,6 +98,8 @@ window.login_btn.addEventListener('click', (evt) => {
     // OR creating the instance once which will remember the passed token and expose the identical API
     eusi.login(window.email.value, window.password.value).then(user => {
         const eusiClient = eusi(user.token);
+        eusiClient.getById('2ebd3d28-6ea4-42c0-a922-43641e5a5753').then(console.log);
+
         eusiClient.submitForm('3597ba73-384c-4766-951b-cc86a31bef00', {
             email: window.email.value,
             password: window.password.value
@@ -97,9 +110,17 @@ window.login_btn.addEventListener('click', (evt) => {
                 $like: '%travel%',
             },
             type: 'blog'
-        });
+        }).then(console.log);
+        eusiClient.get().then(console.log)
+
+        eusiClient.purchaseContent('2ebd3d28-6ea4-42c0-a922-43641e5a5753', {
+            currency: 'ETH',
+            description: 'Buying Europe  Travel blog'
+        })
+            .then(console.log)
+            .catch(console.error);
     })
         .catch(() => {
-        alert('wrong user name or password');
-    });
+            alert('wrong user name or password');
+        });
 });
