@@ -412,7 +412,8 @@ withTokenClient.purchaseContent(contentId, {
 - **description** - payment description which is going to be sent to your customer as part of a notification email
 - **notifyUrl** - the URL which is going to be POST requested with every status change of the payment
 
-For more details please check our official API documentation.
+For more details please check our official [API documentation](https://delivery.docs.eusi.io/).
+
 
 ## Advanced querying
 Our API provides you with an easy and elegant interface to make more complex queries.
